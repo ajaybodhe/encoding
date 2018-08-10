@@ -10,6 +10,7 @@ import (
 	"github.com/davecgh/go-xdr/xdr2"
 	"encoding/gob"
 	goavro2 "github.com/linkedin/goavro"
+	"github.com/ajaybodhe/encoding/models/colferModels"
 )
 
 
@@ -115,6 +116,31 @@ func BenchmarkAvro(b *testing.B) {
 		e6.Phone = e6Map.(map[string]interface{})["phone"].(string)
 	}
 }
+
+func BenchmarkColfer(b *testing.B) {
+	ca := &colferModels.ColferA{
+		Name:"Ajay",
+		BirthDay:time.Now().Unix(),
+		Phone:"7758863774",
+		Siblings:1,
+		Spouse:true,
+		Money:3.44,
+		Loc:&colferModels.ColferB{Location:"pune"},
+	}
+	// run the Fib function b.N times
+	for n := 0; n < b.N; n++ {
+		dColf, err := ca.MarshalBinary()
+		if err!= nil  {
+			panic(err)
+		}
+		ca1 := new(colferModels.ColferA)
+		err = ca1.UnmarshalBinary(dColf)
+		if err!= nil  {
+			panic(err)
+		}
+	}
+}
+
 func BenchmarkGob(b *testing.B) {
 	e := &models.A{
 		Name:"Ajay",

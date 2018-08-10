@@ -1,0 +1,15 @@
+package colferModels
+
+type ColferA struct {
+	Name     text
+	BirthDay int64
+	Phone    text
+	Siblings int32
+	Spouse   bool
+	Money    float64
+	Loc ColferB
+}
+
+type ColferB struct {
+    Location text
+}

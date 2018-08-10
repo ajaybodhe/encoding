@@ -5,6 +5,7 @@ import (
 	"time"
 	"fmt"
 	"github.com/ajaybodhe/encoding/models"
+	"github.com/ajaybodhe/encoding/models/colferModels"
 	"github.com/davecgh/go-xdr/xdr2"
 	"bytes"
 	"github.com/vmihailenco/msgpack"
@@ -17,7 +18,7 @@ import (
 var (
 	codec *goavro2.Codec
 )
-// xdr2, colfer, gencode
+// xdr2, gogoprotobuf, gencode
 func main() {
 	e := &models.A{
 		Name:"Ajay",
@@ -93,4 +94,22 @@ func main() {
 	e6.Loc.Location = e6Map.(map[string]interface{})["B"].(map[string]interface{})["my.namespace.com.b"].(map[string]interface{})["Location"].(string)
 	e6.Phone = e6Map.(map[string]interface{})["phone"].(string)
 	fmt.Println("avro Data:", e6, err)
+	
+	/*
+	colfer
+	 */
+	ca := &colferModels.ColferA{
+		Name:"Ajay",
+		BirthDay:time.Now().Unix(),
+		Phone:"7758863774",
+		Siblings:1,
+		Spouse:true,
+		Money:3.44,
+		Loc:&colferModels.ColferB{Location:"pune"},
+	}
+	dColf, err := ca.MarshalBinary()
+	fmt.Println("colf eData:", string(dColf), err)
+	ca1 := new(colferModels.ColferA)
+	err = ca1.UnmarshalBinary(dColf)
+	fmt.Println("colf Data:", ca1.Loc.Location, err)
 }
