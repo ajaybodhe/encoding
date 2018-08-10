@@ -1,5 +1,5 @@
 # encoding
-testing and benchmarking encoders in golang
+testing and benchmarking encoders in golang : https://github.com/alecthomas/go_serialization_benchmarks
 
 git clone
 
