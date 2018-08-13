@@ -12,6 +12,7 @@ import (
 	goavro2 "github.com/linkedin/goavro"
 	"github.com/ajaybodhe/encoding/models/colferModels"
 	"github.com/ajaybodhe/encoding/models/gogoModels"
+	"github.com/ajaybodhe/encoding/models/gencodeModels"
 )
 
 
@@ -161,6 +162,31 @@ func BenchmarkGogo(b *testing.B) {
 		gogo1 := new(gogoModels.GogoProtoBufA)
 		err = gogo1.Unmarshal(dGogo)
 		if err!= nil  {
+			panic(err)
+		}
+	}
+}
+
+
+func BenchmarkGencode(b *testing.B) {
+	genc := &gencodeModels.GencodeUnsafeA{
+		Name:"Ajay",
+		BirthDay:time.Now().Unix(),
+		Phone:"7758863774",
+		Siblings:1,
+		Spouse:true,
+		Money:3.44,
+		Loc:&gencodeModels.GencodeUnsafeB{Location:"pune"},
+	}
+	// run the Fib function b.N times
+	for n := 0; n < b.N; n++ {
+		dGenc, err := genc.Marshal(nil)
+		if err!= nil  {
+			panic(err)
+		}
+		genc1 := new(gencodeModels.GencodeUnsafeA)
+		_, err = genc1.Unmarshal(dGenc)
+		if err!= nil {
 			panic(err)
 		}
 	}
