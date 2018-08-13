@@ -11,6 +11,7 @@ import (
 	"encoding/gob"
 	goavro2 "github.com/linkedin/goavro"
 	"github.com/ajaybodhe/encoding/models/colferModels"
+	"github.com/ajaybodhe/encoding/models/gogoModels"
 )
 
 
@@ -135,6 +136,30 @@ func BenchmarkColfer(b *testing.B) {
 		}
 		ca1 := new(colferModels.ColferA)
 		err = ca1.UnmarshalBinary(dColf)
+		if err!= nil  {
+			panic(err)
+		}
+	}
+}
+
+func BenchmarkGogo(b *testing.B) {
+	gogo := &gogoModels.GogoProtoBufA{
+		Name:"Ajay",
+		BirthDay:time.Now().Unix(),
+		Phone:"7758863774",
+		Siblings:1,
+		Spouse:true,
+		Money:3.44,
+		GogoProtoBufB:&gogoModels.GogoProtoBufB{Location:"pune"},
+	}
+	// run the Fib function b.N times
+	for n := 0; n < b.N; n++ {
+		dGogo, err := gogo.Marshal()
+		if err!= nil  {
+			panic(err)
+		}
+		gogo1 := new(gogoModels.GogoProtoBufA)
+		err = gogo1.Unmarshal(dGogo)
 		if err!= nil  {
 			panic(err)
 		}

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/ajaybodhe/encoding/models"
 	"github.com/ajaybodhe/encoding/models/colferModels"
+	"github.com/ajaybodhe/encoding/models/gogoModels"
 	"github.com/davecgh/go-xdr/xdr2"
 	"bytes"
 	"github.com/vmihailenco/msgpack"
@@ -18,7 +19,7 @@ import (
 var (
 	codec *goavro2.Codec
 )
-// xdr2, gogoprotobuf, gencode
+// xdr2, gencode
 func main() {
 	e := &models.A{
 		Name:"Ajay",
@@ -33,7 +34,7 @@ func main() {
 	JSON
 	 */
 	d, err := json.Marshal(e)
-	fmt.Println("json eData:", string(d), err)
+	fmt.Println("json eData:", string(d), err, len(d))
 	e1:=new(models.A)
 	err= json.Unmarshal(d, e1)
 	fmt.Println("json Data:", e1, err)
@@ -108,8 +109,26 @@ func main() {
 		Loc:&colferModels.ColferB{Location:"pune"},
 	}
 	dColf, err := ca.MarshalBinary()
-	fmt.Println("colf eData:", string(dColf), err)
+	fmt.Println("colf eData:", string(dColf), err, len(dColf))
 	ca1 := new(colferModels.ColferA)
 	err = ca1.UnmarshalBinary(dColf)
 	fmt.Println("colf Data:", ca1.Loc.Location, err)
+	
+	/*
+	gogoprotobuf
+	 */
+	gogo := &gogoModels.GogoProtoBufA{
+		Name:"Ajay",
+		BirthDay:time.Now().Unix(),
+		Phone:"7758863774",
+		Siblings:1,
+		Spouse:true,
+		Money:3.44,
+		GogoProtoBufB:&gogoModels.GogoProtoBufB{Location:"pune"},
+	}
+	dGogo, err := gogo.Marshal()
+	fmt.Println("gogo eData:", string(dGogo), err, len(dGogo))
+	gogo1 := new(gogoModels.GogoProtoBufA)
+	err = gogo1.Unmarshal(dGogo)
+	fmt.Println("gogo Data:", gogo1.GogoProtoBufB.Location, err)
 }

@@ -1,0 +1,16 @@
+syntax = "proto3";
+package gogoModels;
+
+message GogoProtoBufB  {
+    string Location = 1;
+}
+
+message GogoProtoBufA {
+     string name = 1 ;
+     int64 birthDay = 2 ;
+     string phone = 3 ;
+     int32 siblings = 4 ;
+     bool spouse = 5 ;
+     double money = 6 ;
+    GogoProtoBufB gogoProtoBufB = 7;
+}
