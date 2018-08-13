@@ -1,6 +1,30 @@
 # encoding
 testing and benchmarking encoders in golang : https://github.com/alecthomas/go_serialization_benchmarks
 
+go get -v gopkg.in/src-d/proteus.v1/...
+
+go get -u github.com/andyleap/gencode 
+
+go get -u github.com/pascaldekloe/colfer/cmd/colf
+
+go get github.com/linkedin/goavro.v2 
+
+go get  "github.com/davecgh/go-xdr/xdr2"
+
+go get  github.com/tinylib/msgp 
+
+go get github.com/gogo/protobuf/proto   
+                                         
+go get github.com/gogo/protobuf/jsonpb
+
+go get github.com/gogo/protobuf/protoc-gen-gogo
+
+go get github.com/gogo/protobuf/gogoproto
+
+go get github.com/gogo/protobuf/protoc-gen-gofast
+
+go get -u github.com/mailru/easyjson/...
+
 git clone
 
 cd testing

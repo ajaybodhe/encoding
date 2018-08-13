@@ -6,6 +6,7 @@ import (
 )
 
 //go:generate msgp
+//proteus:generate
 type B struct {
 	Location string `msg:"loc"`
 }
@@ -18,6 +19,7 @@ func (b *B)ToStringMap() map[string]interface{} {
 }
 
 //go:generate msgp
+//proteus:generate
 type A struct {
 	Name     string `msg:"name"`
 	BirthDay int64 `msg:"bd"`
