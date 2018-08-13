@@ -7,6 +7,7 @@ import (
 	"github.com/ajaybodhe/encoding/models"
 	"github.com/ajaybodhe/encoding/models/colferModels"
 	"github.com/ajaybodhe/encoding/models/gogoModels"
+	"github.com/ajaybodhe/encoding/models/gencodeModels"
 	"github.com/davecgh/go-xdr/xdr2"
 	"bytes"
 	"github.com/vmihailenco/msgpack"
@@ -131,4 +132,22 @@ func main() {
 	gogo1 := new(gogoModels.GogoProtoBufA)
 	err = gogo1.Unmarshal(dGogo)
 	fmt.Println("gogo Data:", gogo1.GogoProtoBufB.Location, err)
+	
+	/*
+	gencode
+	 */
+	genc := &gencodeModels.GencodeUnsafeA{
+		Name:"Ajay",
+		BirthDay:time.Now().Unix(),
+		Phone:"7758863774",
+		Siblings:1,
+		Spouse:true,
+		Money:3.44,
+		Loc:&gencodeModels.GencodeUnsafeB{Location:"pune"},
+	}
+	dGenc, err := genc.Marshal(nil)
+	fmt.Println("gencode eData:", string(dGenc), err, len(dGenc))
+	genc1 := new(gencodeModels.GencodeUnsafeA)
+	_, err = genc1.Unmarshal(dGenc)
+	fmt.Println("gencode Data:", genc1.Loc.Location, err)
 }

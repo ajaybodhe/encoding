@@ -5,7 +5,7 @@ git clone
 
 cd testing
 
-go test -bench=.
+go test -bench=. -benchmem
 
 
 ➜  testing go test -bench=.
